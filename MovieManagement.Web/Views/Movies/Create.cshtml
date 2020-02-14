@@ -1,0 +1,92 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label>Title</label>
+            <input type="text" class="form-control" id="movie-title" />
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label>Rating</label>
+            <input type="text" class="form-control" id="movie-rating" />
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label>Category</label>
+            <select id="movie-category">
+            </select>
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label>ReleaseDate</label>
+            <input type="date" class="form-control" id="movie-date" value="2018-05-05"/>
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label>Length</label>
+            <input type="number" class="form-control" id="movie-length" value="120" />
+        </div>
+    </div>
+
+    <hr />
+    <div class="col-sm-12">
+        <div class="form-group">
+            <button type="button" id="save-btn">Save</button>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script type="text/javascript">
+        $.ajax({
+            url: 'http://localhost:56702/api/categories/search',
+            method: 'GET',
+            success: function (result)
+            {
+                for (var i = 0; i < result.length; i++)
+                {
+                    var newOption = "<option value='"+result[i].Name+"'>"+result[i].Name+"</option>";
+                    $("#movie-category").append(newOption);
+                }
+            },
+            error: function (err)
+            {
+                alert('error');
+            }
+        })
+
+
+        $("#save-btn").click(function ()
+        {
+            var request = {
+                Title: $("#movie-title").val(),
+                Rating: $("#movie-rating").val(),
+                CategoryName: $("#movie-category").val(),
+                ReleaseDate: $("#movie-date").val(),
+                Length: $("#movie-length").val(),
+            };
+
+             $.ajax({
+                url: 'http://localhost:56702/api/movies',
+                method: 'POST',
+                 data: request,
+                success: function ()
+                {
+                    window.location.href = "/movies";
+                },
+                error: function (err)
+                {
+                    alert('update error');
+                }
+            })
+        })
+    </script>
+}

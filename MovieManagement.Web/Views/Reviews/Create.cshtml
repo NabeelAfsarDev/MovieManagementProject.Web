@@ -1,0 +1,41 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label>Score</label>
+            <input type="text" class="form-control" id="review-score" />
+        </div>
+    </div>
+
+    <hr />
+    <div class="col-sm-12">
+        <div class="form-group">
+            <button type="button" id="save-btn">Save</button>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script type="text/javascript">
+        $("#save-btn").click(function ()
+        {
+            var request = {
+                Score: $("#review-score").val(),
+            };
+
+             $.ajax({
+                url: 'http://localhost:56702/api/reviews',
+                method: 'POST',
+                 data: request,
+                success: function ()
+                {
+                    window.location.href = "/reviews";
+                },
+                error: function (err)
+                {
+                    alert('update error');
+                }
+            })
+        })
+    </script>
+}

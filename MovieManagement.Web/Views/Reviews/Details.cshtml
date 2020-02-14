@@ -1,0 +1,60 @@
+﻿@model Guid
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label>Score</label>
+            <input type="text" class="form-control" id="review-score" />
+        </div>
+    </div>
+
+    <hr />
+    <div class="col-sm-12">
+        <div class="form-group">
+            <button type="button" id="update-btn">Update</button>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+
+    <script type="text/javascript">
+        $.ajax({
+            url: 'http://localhost:56702/api/reviews/'+ '@Model',
+            method: 'GET',
+            success: function (data)
+            {
+                $('#review-score').val(data.Score);
+            },
+            error: function (err)
+            {
+                alert('error', err);
+            }
+        })
+
+        $('#update-btn').click(function ()
+        {
+            var requestToSend = {
+                Score: $('#review-score').val(),
+                Id: '@Model'
+            };
+
+            $.ajax({
+                url: 'http://localhost:56702/api/reviews/' + '@Model',
+                method: 'PUT',
+                data: requestToSend,
+                success: function ()
+                {
+                    alert('Nice');
+                },
+                error: function (err)
+                {
+                    alert('update error');
+                }
+            })
+
+        })
+    </script>
+
+}

@@ -1,0 +1,103 @@
+﻿@model Guid
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label>Title</label>
+            <input type="text" class="form-control" id="movie-title" />
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label>Rating</label>
+            <input type="text" class="form-control" id="movie-rating" />
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label>Category</label>
+            <span id="movie-category"></span>
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label>ReleaseDate</label>
+            <span id="movie-date"></span>
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label>Length</label>
+            <span id="movie-length"></span>
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label>Score</label>
+            <span id="movie-score"></span>
+        </div>
+    </div>
+
+    <hr />
+    <div class="col-sm-12">
+        <div class="form-group">
+            <button type="button" id="update-btn">Update</button>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+
+    <script type="text/javascript">
+        $.ajax({
+            url: 'http://localhost:56702/api/movies/'+ '@Model',
+            method: 'GET',
+            success: function (data)
+            {
+                $('#movie-title').val(data.Title);
+                $('#movie-rating').val(data.Rating);
+                $('#movie-category').text(data.CategoryName);
+                $('#movie-date').text(data.ReleaseDate);
+                $('#movie-length').text(data.Length);
+                $('#movie-score').text(data.AverageScore);
+            },
+            error: function (err)
+            {
+                alert('error', err);
+            }
+        })
+
+        $('#update-btn').click(function ()
+        {
+            var requestToSend = {
+                Title: $('#movie-title').val(),
+                Rating: $('#movie-rating').val(),
+                ReleaseDate: $('#movie-date').text(),
+                Length: $('#movie-length').text(),
+                Id: '@Model'
+            };
+
+            $.ajax({
+                url: 'http://localhost:56702/api/movies/' + '@Model',
+                method: 'PUT',
+                data: requestToSend,
+                success: function ()
+                {
+                    alert('Nice');
+                },
+                error: function (err)
+                {
+                    alert('update error');
+                }
+            })
+
+        })
+    </script>
+
+}

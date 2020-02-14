@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="~/Theme/css/bootstrap.min.css" rel="stylesheet">
+    <!-- MetisMenu CSS -->
+    <link href="~/Theme/css/metisMenu.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="~/Theme/css/sb-admin-2.css" rel="stylesheet">
+    <!-- Morris Charts CSS -->
+    <link href="~/Theme/css/morris.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="~/Theme/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+
+    @Html.Partial("_Navigation")
+   
+
+
+    <div id="wrapper">
+        <div id="page-wrapper">
+            @RenderBody()
+        </div>
+
+    </div>
+    <!-- jQuery -->
+    <script src="~/Theme/js/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="~/Theme/js/bootstrap.min.js"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="~/Theme/js/metisMenu.min.js"></script>
+    <!-- Morris Charts JavaScript -->
+    <script src="~/Theme/js/raphael.min.js"></script>
+    <script src="~/Theme/js/morris.min.js"></script>
+    <script src="~/Theme/js/morris-data.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="~/Theme/js/sb-admin-2.js"></script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

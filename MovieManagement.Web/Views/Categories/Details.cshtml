@@ -1,0 +1,60 @@
+﻿@model Guid
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" id="category-name" />
+        </div>
+    </div>
+
+    <hr />
+    <div class="col-sm-12">
+        <div class="form-group">
+            <button type="button" id="update-btn">Update</button>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+
+    <script type="text/javascript">
+        $.ajax({
+            url: 'http://localhost:56702/api/categories/'+ '@Model',
+            method: 'GET',
+            success: function (data)
+            {
+                $('#category-name').val(data.Name);
+            },
+            error: function (err)
+            {
+                alert('error', err);
+            }
+        })
+
+        $('#update-btn').click(function ()
+        {
+            var requestToSend = {
+                Name: $('#category-name').val(),
+                Id: '@Model'
+            };
+
+            $.ajax({
+                url: 'http://localhost:56702/api/categories/' + '@Model',
+                method: 'PUT',
+                data: requestToSend,
+                success: function ()
+                {
+                    alert('Nice');
+                },
+                error: function (err)
+                {
+                    alert('update error');
+                }
+            })
+
+        })
+    </script>
+
+}
